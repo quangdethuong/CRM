@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,24 +17,24 @@
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <title>Pixel Admin</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Menu CSS -->
-    <link href="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <!-- animation CSS -->
-    <link href="css/animate.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
-    <!-- color CSS -->
-    <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
-    <link rel="stylesheet" href="./css/custom.css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<%--    <!-- Bootstrap Core CSS -->--%>
+<%--    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">--%>
+<%--    <!-- Menu CSS -->--%>
+<%--    <link href="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">--%>
+<%--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">--%>
+<%--    <!-- animation CSS -->--%>
+<%--    <link href="css/animate.css" rel="stylesheet">--%>
+<%--    <!-- Custom CSS -->--%>
+<%--    <link href="css/style.css" rel="stylesheet">--%>
+<%--    <!-- color CSS -->--%>
+<%--    <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">--%>
+<%--    <link rel="stylesheet" href="./css/custom.css">--%>
+<%--    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->--%>
+<%--    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->--%>
+<%--    <!--[if lt IE 9]>--%>
+<%--    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>--%>
+<%--    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>--%>
+<%--    <![endif]-->--%>
 </head>
 
 <body>
@@ -44,6 +43,7 @@
     <div class="cssload-speeding-wheel"></div>
 </div>
 <div id="wrapper">
+    <% String contextPath = request.getContextPath(); %>
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top m-b-0">
         <div class="navbar-header">
@@ -75,13 +75,13 @@
                     <div class="dropdown">
                         <a class="profile-pic dropdown-toggle" data-toggle="dropdown" href="#">
                             <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle" />
-                            <b class="hidden-xs">Cybersoft</b>
+                            <b class="hidden-xs">hi ${email}</b>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="profile.html">Thông tin cá nhân</a></li>
                             <li><a href="#">Thống kê công việc</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Đăng xuất</a></li>
+                            <li><a href="<%=contextPath%>/logout">Đăng xuất</a></li>
                         </ul>
                     </div>
                 </li>
@@ -94,7 +94,7 @@
     <!-- Left navbar-header -->
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse slimscrollsidebar">
-            <% String contextPath = request.getContextPath(); %>
+
 
             <ul class="nav" id="side-menu">
                 <li style="padding: 10px 0 0;">
@@ -110,12 +110,12 @@
                                                                             aria-hidden="true"></i><span class="hide-menu">Quyền</span></a>
                 </li>
                 <li>
-                    <a href="groupwork.html" class="waves-effect"><i class="fa fa-table fa-fw"
-                                                                     aria-hidden="true"></i><span class="hide-menu">Dự án</span></a>
+                    <a href="groupwork.jsp" class="waves-effect"><i class="fa fa-table fa-fw"
+                                                                    aria-hidden="true"></i><span class="hide-menu">Dự án</span></a>
                 </li>
                 <li>
-                    <a href="task.html" class="waves-effect"><i class="fa fa-table fa-fw"
-                                                                aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
+                    <a href="task.jsp" class="waves-effect"><i class="fa fa-table fa-fw"
+                                                               aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
                 </li>
                 <li>
                     <a href="blank.html" class="waves-effect"><i class="fa fa-columns fa-fw"
@@ -134,24 +134,24 @@
     <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
-<!-- jQuery -->
-<script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Menu Plugin JavaScript -->
-<script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
-<!--slimscroll JavaScript -->
-<script src="js/jquery.slimscroll.js"></script>
-<script src="js/jquery.dataTables.js"></script>
-<!--Wave Effects -->
-<script src="js/waves.js"></script>
-<!-- Custom Theme JavaScript -->
-<script src="js/custom.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
+<%--<!-- jQuery -->--%>
+<%--<script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>--%>
+<%--<!-- Bootstrap Core JavaScript -->--%>
+<%--<script src="bootstrap/dist/js/bootstrap.min.js"></script>--%>
+<%--<!-- Menu Plugin JavaScript -->--%>
+<%--<script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>--%>
+<%--<!--slimscroll JavaScript -->--%>
+<%--<script src="js/jquery.slimscroll.js"></script>--%>
+<%--<script src="js/jquery.dataTables.js"></script>--%>
+<%--<!--Wave Effects -->--%>
+<%--<script src="js/waves.js"></script>--%>
+<%--<!-- Custom Theme JavaScript -->--%>
+<%--<script src="js/custom.min.js"></script>--%>
+<%--<script>--%>
+<%--    $(document).ready(function () {--%>
+<%--        $('#example').DataTable();--%>
+<%--    });--%>
+<%--</script>--%>
 </body>
 
 </html>

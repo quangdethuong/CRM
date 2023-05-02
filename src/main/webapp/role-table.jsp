@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -142,31 +141,24 @@
                                 <table class="table" id="example">
                                     <thead>
                                         <tr>
-                                            <th>STT</th>
+                                            <th>ID</th>
                                             <th>Tên Quyền</th>
                                             <th>Mô Tả</th>
                                             <th>Hành Động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach var="item" items="${rolesList}">
                                         <tr>
-                                            <td>1</td>
-                                            <td>ROLE_ADMIN</td>
-                                            <td>Quản trị hệ thống</td>
+                                            <td>${item.getId()}</td>
+                                            <td>${item.getName()}</td>
+                                            <td>${item.getDescription( )}</td>
                                             <td>
                                                 <a href="#" class="btn btn-sm btn-primary">Sửa</a>
                                                 <a href="#" class="btn btn-sm btn-danger">Xóa</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>ROLE_USER</td>
-                                            <td>Nhân viên</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                            </td>
-                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

@@ -7,13 +7,7 @@ public class RolesModel {
 
     private String description;
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public int getId() {
         return Id;
@@ -29,5 +23,13 @@ public class RolesModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

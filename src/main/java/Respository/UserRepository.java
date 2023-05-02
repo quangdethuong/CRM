@@ -55,7 +55,6 @@ public class UserRepository {
             while (resultSet.next()) {
                 //Duyệt từng dòng dữ liệu
                 UserModel userModel = new UserModel();
-                RolesModel rolesModel = new RolesModel();
                 //Lấy giá trị của cột chỉ định và lưu vào đối tượng
                 userModel.setId(resultSet.getInt("id"));
                 userModel.setEmail(resultSet.getString("email"));
