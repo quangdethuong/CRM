@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <title>Pixel Admin</title>
     <!-- Bootstrap Core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href=<c:url value="/bootstrap/dist/css/bootstrap.min.css"/> rel="stylesheet">
     <!-- Menu CSS -->
     <link href="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
@@ -38,6 +38,8 @@
     <div class="cssload-speeding-wheel"></div>
 </div>
 <div id="wrapper">
+<%--    <% String contextPath = request.getContextPath(); %>--%>
+
     <%@ include file="navbar.jsp" %>
 
     <!-- Page Content -->
@@ -48,7 +50,7 @@
                     <h4 class="page-title">Danh sách thành viên</h4>
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                    <a href="user-add.html" class="btn btn-sm btn-success">Thêm mới</a>
+                    <a href="<%=contextPath%>/user/add" class="btn btn-sm btn-success">Thêm mới</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -76,7 +78,9 @@
                                     <td>${item.roleName}</td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
+<%--                                        <a href="<c:url value="/user/delete/?id=${item.getId()}}"/>" class="btn btn-sm btn-danger">Xóa</a>--%>
+                                        <a href="#" userId="${item.getId()}" class="btn btn-sm btn-danger btn-delete-user">Xóa</a>
+<%--                                        <span userId="${item.getId()}" class="btn btn-sm btn-danger btn-delele-user">Xóa</span>--%>
                                         <a href="user-details.html" class="btn btn-sm btn-info">Xem</a>
                                     </td>
                                 </tr>
@@ -108,6 +112,7 @@
 <script src="js/waves.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="js/custom.min.js"></script>
+<script src="<c:url value="/js/user-table.js"/>"></script>
 <script>
     $(document).ready(function () {
         $('#example').DataTable();

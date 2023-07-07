@@ -77,5 +77,56 @@ public class UserRepository {
         return userModelList;
     }
 
+    public boolean insertUser(String fullName, String email, String password, int role_id) {
+        Connection connection = null;
+        boolean isSucess = false;
+        try {
+            connection = MysqlConfig.getConnection();
+            String sql = "INSERT into users (email,password,fullname, role_id) values (?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            statement.setString(2, password);
+            statement.setString(3, fullName);
+            statement.setInt(4, role_id);
+            isSucess = statement.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            System.out.println("error query insertUser" + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    System.out.println("Lỗi đóng kết nối query insertUser " + e.getMessage());
+                }
+            }
+        }
+        return isSucess;
+    }
+
+    public Boolean deleteById(int id) {
+        Connection connection = null;
+        boolean isSucess = false;
+
+        try {
+            connection = MysqlConfig.getConnection();
+            String sql = "Delete From users u where u.id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            isSucess = statement.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println("error mutation deleteUser" + e.getMessage());
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    System.out.println("Lỗi đóng kết nối mutation deleteUser " + e.getMessage());
+                }
+            }
+        }
+        return isSucess;
+    }
 
 }
