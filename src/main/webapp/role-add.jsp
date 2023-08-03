@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,13 +38,15 @@
     <div class="cssload-speeding-wheel"></div>
 </div>
 <div id="wrapper">
+    <!-- Navigation -->
     <%@ include file="navbar.jsp" %>
+
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Thêm mới thành viên</h4>
+                    <h4 class="page-title">Thêm mới quyền</h4>
                 </div>
             </div>
             <!-- /.row -->
@@ -56,42 +57,26 @@
                     <div class="white-box">
                         <form class="form-horizontal form-material" method="post">
                             <div class="form-group">
-                                <label class="col-md-12">Full Name</label>
+                                <label class="col-md-12">Tên quyền</label>
                                 <div class="col-md-12">
-                                    <input name="fullName" type="text" placeholder="Johnathan Doe"
-                                           class="form-control form-control-line"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="example-email" class="col-md-12">Email</label>
-                                <div class="col-md-12">
-                                    <input type="email" placeholder="quang@gmail.com"
-                                           class="form-control form-control-line" name="email"
-                                           id="example-email"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-12">Password</label>
-                                <div class="col-md-12">
-                                    <input name="passWord" type="password" value="password"
-                                           class="form-control form-control-line">
+                                    <input type="text" placeholder="Tên quyền"
+                                           class="form-control form-control-line" name="roleName" />
                                 </div>
                             </div>
-
                             <div class="form-group">
-                                <label class="col-sm-12">Select Country</label>
-                                <div class="col-sm-12">
-
-                                    <select name="role" class="form-control form-control-line">
-                                        <c:forEach var="item" items="${listRole}">
-                                        <option value="${item.getId()}">${item.getDescription()}</option>
-                                        </c:forEach>
-
+                                <label class="col-md-12">Mô tả</label>
+                                <div class="col-md-12">
+                                    <select name="des" class="form-control form-control-line">
+                                        <option value="Quản trị hệ thống">Quản trị hệ thống</option>
+                                        <option value="Quản lí">Quản lí</option>
+                                        <option value="Nhân viên">Nhân viên</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-success">Add User</button>
-                                    <a href="<%=contextPath%>/user" class="btn btn-primary">Quay lại</a>
+                                    <button type="submit" class="btn btn-success">Add Role</button>
+                                    <a href="role-table.jsp" class="btn btn-primary">Quay lại</a>
                                 </div>
                             </div>
                         </form>

@@ -11,6 +11,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
+    //Select *  from users u inner join roles r on u.role_id  = r.id WHERE u.email  = "admin@gmail.com"
+    public UserModel findUserRole(String email) {
+        Connection connection = null;
+        UserModel userModel = null;
+        try {
+            String sql = "Select u.id , u.email,u.role_id  from users u inner join roles r on u.role_id  = r.id WHERE u.email  =  ?";
+            PreparedStatement statement = MysqlConfig.getConnection().prepareStatement(sql);
+            statement.setString(1, email);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                //Duyệt từng dòng dữ liệu
+                userModel = new UserModel();
+                //Lấy giá trị của cột chỉ định và lưu vào đối tượng
+                userModel.setId(resultSet.getInt("id"));
+                userModel.setEmail(resultSet.getString("email"));
+
+                userModel.setRoleId(resultSet.getInt("role_id"));
+
+
+            }
+        } catch (Exception e) {
+            System.out.println("error find user role" + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    System.out.println("Lỗi đóng kết nối find user role" + e.getMessage());
+                }
+            }
+        }
+        return userModel;
+    }
     public List<UserModel> findByEmailAndPassword(String email, String password) {
         Connection connection = null;
         List<UserModel> userModelList = new ArrayList<>();

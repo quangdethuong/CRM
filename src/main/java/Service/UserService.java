@@ -17,6 +17,10 @@ public class UserService {
         return userRepository.getAll();
     }
 
+    public UserModel findUserRole(String email){
+        return userRepository.findUserRole(email);
+    }
+
     public List<RolesModel> getAllRole(){
         return rolesRepository.getAll();
     }

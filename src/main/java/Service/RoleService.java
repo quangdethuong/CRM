@@ -11,4 +11,13 @@ public class RoleService {
     public List<RolesModel> getAll(){
         return rolesRepository.getAll();
     }
+
+    public boolean addRole(String role, String des){
+        return rolesRepository.insertRole(role, des);
+    }
+
+    public boolean deleteRole(int id){
+        return rolesRepository.deleteRoleById(id);
+    }
+
 }

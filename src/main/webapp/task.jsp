@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +38,9 @@
         <div class="cssload-speeding-wheel"></div>
     </div>
     <div id="wrapper">
+
         <%@ include file="navbar.jsp" %>
+
 
         <!-- Page Content -->
         <div id="page-wrapper">

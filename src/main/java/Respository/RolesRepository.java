@@ -11,6 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RolesRepository {
+
+
+    public boolean insertRole(String role, String des) {
+        Connection connection = null;
+        boolean isSucess = false;
+        try {
+            connection = MysqlConfig.getConnection();
+            String sql = "INSERT INTO roles(name, description ) VALUES (?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, role);
+            statement.setString(2, des);
+
+            isSucess = statement.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println("Error insertRole: " + e.getMessage());
+        } finally {
+            // Try catch chạy xong sẽ chạy vào finally
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    System.out.println("Lỗi đóng kết nối insertRole: " + e.getMessage());
+                }
+            }
+
+        }
+        return isSucess;
+    }
     public List<RolesModel> getAll() {
         Connection connection = null;
         List<RolesModel> rolesModelList = new ArrayList<>();
@@ -39,5 +67,31 @@ public class RolesRepository {
             }
         }
         return rolesModelList;
+    }
+
+
+    public Boolean deleteRoleById(int id) {
+        Connection connection = null;
+        boolean isSucess = false;
+
+        try {
+            connection = MysqlConfig.getConnection();
+            String sql = "Delete From roles r where r.id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            isSucess = statement.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println("error mutation deleteUser" + e.getMessage());
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    System.out.println("Lỗi đóng kết nối mutation deleteUser " + e.getMessage());
+                }
+            }
+        }
+        return isSucess;
     }
 }

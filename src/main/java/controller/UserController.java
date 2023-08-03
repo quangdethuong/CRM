@@ -45,13 +45,9 @@ public class UserController extends HttpServlet {
 
         switch (path) {
             case "/user":
-
-
                 getAllUser(request, response);
                 break;
             case "/user/add":
-
-
                 addUser(request, response);
                 break;
             default:
