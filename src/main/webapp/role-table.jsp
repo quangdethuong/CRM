@@ -103,6 +103,7 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script src="<c:url value="/js/role-table.js"/>"></script>
     <script>
         $(document).ready(function () {
             $('#example').DataTable();

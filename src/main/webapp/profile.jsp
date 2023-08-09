@@ -55,10 +55,12 @@
                             <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/img1.jpg">
                                 <div class="overlay-box">
                                     <div class="user-content">
-                                        <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg"
-                                                class="thumb-lg img-circle" alt="img"></a>
-                                        <h4 class="text-white">Nguyễn Văn Tèo</h4>
-                                        <h5 class="text-white">info.teo@gmail.com</h5>
+                                        <c:if test="${user2!=null}">
+                                            <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg"
+                                                                              class="thumb-lg img-circle" alt="img"></a>
+                                            <h4 class="text-white">${user2.fullname}</h4>
+                                            <h5 class="text-white">${user2.getEmail()}</h5>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>

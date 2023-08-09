@@ -62,8 +62,8 @@ public class RolesController extends HttpServlet {
             String des = request.getParameter("des");
             roleService.addRole(role, des);
         }
-//        request.getRequestDispatcher("/role-add.jsp").forward(request, response);
-            response.sendRedirect(request.getContextPath() + "/role");
+        request.getRequestDispatcher("/role-add.jsp").forward(request, response);
+//            response.sendRedirect(request.getContextPath() + "/role");
     }
 
     private void getAllRole(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

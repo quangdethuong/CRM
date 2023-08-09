@@ -16,7 +16,7 @@ public class UserRepository {
         Connection connection = null;
         UserModel userModel = null;
         try {
-            String sql = "Select u.id , u.email,u.role_id  from users u inner join roles r on u.role_id  = r.id WHERE u.email  =  ?";
+            String sql = "Select u.id , u.email,u.fullname,u.role_id  from users u inner join roles r on u.role_id  = r.id WHERE u.email  =  ?";
             PreparedStatement statement = MysqlConfig.getConnection().prepareStatement(sql);
             statement.setString(1, email);
 
@@ -27,7 +27,7 @@ public class UserRepository {
                 //Lấy giá trị của cột chỉ định và lưu vào đối tượng
                 userModel.setId(resultSet.getInt("id"));
                 userModel.setEmail(resultSet.getString("email"));
-
+                userModel.setFullname(resultSet.getString("fullname"));
                 userModel.setRoleId(resultSet.getInt("role_id"));
 
 
@@ -45,6 +45,43 @@ public class UserRepository {
         }
         return userModel;
     }
+
+
+    public UserModel getUserById(int id) {
+        Connection connection = null;
+        UserModel userModel = null;
+        try {
+            String sql = "Select * from users u WHERE u.id  =  ?";
+            PreparedStatement statement = MysqlConfig.getConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                //Duyệt từng dòng dữ liệu
+                userModel = new UserModel();
+                //Lấy giá trị của cột chỉ định và lưu vào đối tượng
+                userModel.setId(resultSet.getInt("id"));
+                userModel.setEmail(resultSet.getString("email"));
+                userModel.setFullname(resultSet.getString("fullname"));
+                userModel.setAvatar(resultSet.getString("avatar"));
+                userModel.setRoleId(resultSet.getInt("role_id"));
+
+
+            }
+        } catch (Exception e) {
+            System.out.println("error find user with id " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    System.out.println("Lỗi đóng kết nối find user with id" + e.getMessage());
+                }
+            }
+        }
+        return userModel;
+    }
+
     public List<UserModel> findByEmailAndPassword(String email, String password) {
         Connection connection = null;
         List<UserModel> userModelList = new ArrayList<>();
@@ -138,6 +175,31 @@ public class UserRepository {
         return isSucess;
     }
 
+    public boolean updateByIdUser(int id, String newEmail, String newFullName) {
+        Connection connection = null;
+        boolean isSuccess = false;
+        try {
+            connection = MysqlConfig.getConnection();
+            String sql = "UPDATE users SET email = ?, fullname = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, newEmail);
+            statement.setString(2, newFullName);
+            statement.setInt(3, id);
+            isSuccess = statement.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println("Error updateUser: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    System.out.println("Error closing connection in updateUser: " + e.getMessage());
+                }
+            }
+            return isSuccess;
+        }
+    }
+
     public Boolean deleteById(int id) {
         Connection connection = null;
         boolean isSucess = false;
@@ -150,8 +212,7 @@ public class UserRepository {
             isSucess = statement.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println("error mutation deleteUser" + e.getMessage());
-        }
-        finally {
+        } finally {
             if (connection != null) {
                 try {
                     connection.close();

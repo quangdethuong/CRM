@@ -83,6 +83,11 @@ public class UserController extends HttpServlet {
         request.getRequestDispatcher("/user-add.jsp").forward(request, response);
     }
 
+//    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        boolean isSuccess = userService.updateUser(id);
+//    }
+
     private void deteleUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         boolean isSuccess = userService.deleteUser(id);

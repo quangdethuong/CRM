@@ -29,6 +29,16 @@ public class UserService {
         return userRepository.insertUser(fullName, email, passWord, role_id);
     }
 
+    public List<UserModel> getUser(String email, String password){
+
+        return userRepository.findByEmailAndPassword(email , password);
+    }
+
+    public UserModel getUserById(int Id){
+        UserModel user = userRepository.getUserById(Id);
+        return user;
+    }
+
     public boolean deleteUser(int id){
         return userRepository.deleteById(id);
     }

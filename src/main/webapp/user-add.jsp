@@ -77,7 +77,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-12">Select Country</label>
+                                <label class="col-sm-12">Select Role</label>
                                 <div class="col-sm-12">
 
                                     <select name="role" class="form-control form-control-line">

@@ -51,9 +51,12 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("password");
         String remember = req.getParameter("remember");
         UserModel user = userService.findUserRole(email);
-
+        session.setAttribute("role_id", user.getRoleId());
+        session.setAttribute("user2", user);
         System.out.println(remember);
         boolean isSuccess = loginService.checkLogin(email, password);
+        List<UserModel> userModelList = userService.getUser(email, password);
+        session.setAttribute("user", userModelList);
         if (remember != null && isSuccess) {
             Cookie cUserName = new Cookie("email", email);
             Cookie cPassWord = new Cookie("password", password);
@@ -61,8 +64,6 @@ public class LoginController extends HttpServlet {
             resp.addCookie(cPassWord);
             session.setAttribute("email", email);
             session.setAttribute("password", password);
-
-            session.setAttribute("role_id", user.getRoleId());
 
             String contextPath = req.getContextPath();
             resp.sendRedirect(contextPath + "/dashboard");

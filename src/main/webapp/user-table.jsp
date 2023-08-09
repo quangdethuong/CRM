@@ -77,7 +77,7 @@
                                     <td>${item.getEmail()}</td>
                                     <td>${item.roleName}</td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
+<%--                                        <a href="<c:url value="user/update?id=${item.getId}"/>" class="btn btn-sm btn-primary">Sửa</a>--%>
 <%--                                        <a href="<c:url value="/user/delete/?id=${item.getId()}}"/>" class="btn btn-sm btn-danger">Xóa</a>--%>
                                         <a href="#" userId="${item.getId()}" class="btn btn-sm btn-danger btn-delete-user">Xóa</a>
 <%--                                        <span userId="${item.getId()}" class="btn btn-sm btn-danger btn-delele-user">Xóa</span>--%>
