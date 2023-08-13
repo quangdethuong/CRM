@@ -1,5 +1,7 @@
 package Respository;
 
+import Dto.TaskDTO;
+import Dto.UserDetailDTO;
 import config.MysqlConfig;
 import model.RolesModel;
 import model.UserModel;
@@ -51,7 +53,7 @@ public class UserRepository {
         Connection connection = null;
         UserModel userModel = null;
         try {
-            String sql = "Select * from users u WHERE u.id  =  ?";
+            String sql = "Select * from users u inner join roles r on u.role_id  = r.id WHERE u.id  =  ?";
             PreparedStatement statement = MysqlConfig.getConnection().prepareStatement(sql);
             statement.setInt(1, id);
 
@@ -65,6 +67,7 @@ public class UserRepository {
                 userModel.setFullname(resultSet.getString("fullname"));
                 userModel.setAvatar(resultSet.getString("avatar"));
                 userModel.setRoleId(resultSet.getInt("role_id"));
+                userModel.setRoleName(resultSet.getString("name"));
 
 
             }
@@ -80,6 +83,58 @@ public class UserRepository {
             }
         }
         return userModel;
+    }
+
+
+    public UserDetailDTO findByUserId(int userId) {
+        Connection connection = null;
+        UserDetailDTO userDetailDto = new UserDetailDTO();
+        List<TaskDTO> taskDtoList = new ArrayList<>();
+
+        try {
+            connection = MysqlConfig.getConnection();
+            String userSql = "SELECT fullname as user_name, email as email, avatar as avatar FROM users WHERE id = ?";
+            PreparedStatement userStatement = connection.prepareStatement(userSql);
+            userStatement.setInt(1, userId);
+            ResultSet userResult = userStatement.executeQuery();
+
+            if (userResult.next()) {
+                userDetailDto.setUserName(userResult.getString("user_name"));
+                userDetailDto.setUserEmail(userResult.getString("email"));
+                userDetailDto.setUserAvatar(userResult.getString("avatar"));
+            }
+
+            String taskSql = "SELECT t.*, j.name as job_name, s.id as status_id FROM tasks t INNER JOIN jobs j ON t.job_id = j.id INNER JOIN status s ON t.status_id = s.id WHERE t.user_id = ?";
+            PreparedStatement taskStatement = connection.prepareStatement(taskSql);
+            taskStatement.setInt(1, userId);
+            ResultSet taskResult = taskStatement.executeQuery();
+
+            while (taskResult.next()) {
+                TaskDTO taskDto = new TaskDTO();
+                taskDto.setId(taskResult.getInt("id"));
+                taskDto.setName(taskResult.getString("name"));
+                taskDto.setStartDay(taskResult.getDate("start_date"));
+                taskDto.setEndDay(taskResult.getDate("end_date"));
+                taskDto.setJobName(taskResult.getString("job_name"));
+                taskDto.setStatusId(taskResult.getInt("status_id"));
+                taskDtoList.add(taskDto);
+            }
+
+            userDetailDto.setTaskDtoList(taskDtoList);
+
+        } catch (Exception e) {
+            System.out.println("Error findByUserId: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    System.out.println("Error close findByUserId: " + e.getMessage());
+                }
+            }
+        }
+
+        return userDetailDto;
     }
 
     public List<UserModel> findByEmailAndPassword(String email, String password) {
@@ -175,16 +230,18 @@ public class UserRepository {
         return isSucess;
     }
 
-    public boolean updateByIdUser(int id, String newEmail, String newFullName) {
+    public boolean updateUser(int id, String newEmail, String newFullName, String avatar, int roleId) {
         Connection connection = null;
         boolean isSuccess = false;
         try {
             connection = MysqlConfig.getConnection();
-            String sql = "UPDATE users SET email = ?, fullname = ? WHERE id = ?";
+            String sql = "UPDATE users SET email = ?, fullname = ?, avatar= ?,  role_id = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, newEmail);
             statement.setString(2, newFullName);
-            statement.setInt(3, id);
+            statement.setString(3, avatar);
+            statement.setInt(4, roleId);
+            statement.setInt(5, id);
             isSuccess = statement.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println("Error updateUser: " + e.getMessage());

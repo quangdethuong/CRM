@@ -35,9 +35,14 @@ public class UserService {
     }
 
     public UserModel getUserById(int Id){
-        UserModel user = userRepository.getUserById(Id);
-        return user;
+
+        return userRepository.getUserById(Id);
     }
+
+    public boolean udpateUser(int id, String email, String fullname, String avatar, int roleId){
+        return userRepository.updateUser(id, email, fullname, avatar ,roleId);
+    }
+
 
     public boolean deleteUser(int id){
         return userRepository.deleteById(id);

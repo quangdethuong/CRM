@@ -13,7 +13,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <title>Pixel Admin</title>
     <!-- Bootstrap Core CSS -->
-    <link href=<c:url value="/bootstrap/dist/css/bootstrap.min.css"/> rel="stylesheet">
+    <link href=
+          <c:url value="/bootstrap/dist/css/bootstrap.min.css"/> rel="stylesheet">
     <!-- Menu CSS -->
     <link href="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
@@ -38,7 +39,7 @@
     <div class="cssload-speeding-wheel"></div>
 </div>
 <div id="wrapper">
-<%--    <% String contextPath = request.getContextPath(); %>--%>
+    <%--    <% String contextPath = request.getContextPath(); %>--%>
 
     <%@ include file="navbar.jsp" %>
 
@@ -71,19 +72,24 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="item" items="${userList}">
-                                <tr>
-                                    <td>${item.getId()}</td>
-                                    <td>${item.getFullname()}</td>
-                                    <td>${item.getEmail()}</td>
-                                    <td>${item.roleName}</td>
-                                    <td>
-<%--                                        <a href="<c:url value="user/update?id=${item.getId}"/>" class="btn btn-sm btn-primary">Sửa</a>--%>
-<%--                                        <a href="<c:url value="/user/delete/?id=${item.getId()}}"/>" class="btn btn-sm btn-danger">Xóa</a>--%>
-                                        <a href="#" userId="${item.getId()}" class="btn btn-sm btn-danger btn-delete-user">Xóa</a>
-<%--                                        <span userId="${item.getId()}" class="btn btn-sm btn-danger btn-delele-user">Xóa</span>--%>
-                                        <a href="user-details.jsp" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>${item.getId()}</td>
+                                        <td>${item.getFullname()}</td>
+                                        <td>${item.getEmail()}</td>
+                                        <td>${item.roleName}</td>
+                                        <td>
+
+                                                <%--                                        <a href="<c:url value="/user/update?id=${item.getId}"/>" class="btn btn-sm btn-primary">Sửa</a>--%>
+                                                <a href="<c:url value="/user/update?id=${item.id}" />"
+                                                   class="btn btn-sm btn-primary">Sửa</a>
+
+                                                <%--                                        <a href="<c:url value="/user/delete/?id=${item.getId()}}"/>" class="btn btn-sm btn-danger">Xóa</a>--%>
+                                                <a href="#" userId="${item.getId()}"
+                                                   class="btn btn-sm btn-danger btn-delete-user">Xóa</a>
+                                                <%--                                        <span userId="${item.getId()}" class="btn btn-sm btn-danger btn-delele-user">Xóa</span>--%>
+                                                <a href="user-details.jsp" class="btn btn-sm btn-info">Xem</a>
+                                        </td>
+                                    </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -94,7 +100,7 @@
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
-        <footer class="footer text-center"> 2018 &copy; myclass.com </footer>
+        <footer class="footer text-center"> 2018 &copy; myclass.com</footer>
     </div>
     <!-- /#page-wrapper -->
 </div>

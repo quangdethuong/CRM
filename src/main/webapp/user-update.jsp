@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 84944
+  Date: 2023-08-09
+  Time: 4:18 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,7 +13,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">nma
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -54,24 +61,30 @@
                 <div class="col-md-2 col-12"></div>
                 <div class="col-md-8 col-xs-12">
                     <div class="white-box">
-                        <form class="form-horizontal form-material" method="post">
+                        <form class="form-horizontal form-material"  method="post">
+                            <div class="form-group">
+
+                                <input value="${userUpdate.id}" name="oldId" type="hidden"
+                                       class="form-control form-control-line">
+                            </div>
                             <div class="form-group">
                                 <label class="col-md-12">Full Name</label>
                                 <div class="col-md-12">
-                                    <input name="fullName" type="text" placeholder="Johnathan Doe"
+                                    <input name="newFullName" type="text" value="${userUpdate.fullname}" placeholder=""
                                            class="form-control form-control-line"></div>
                             </div>
                             <div class="form-group">
                                 <label for="example-email" class="col-md-12">Email</label>
                                 <div class="col-md-12">
-                                    <input type="email" placeholder="quang@gmail.com"
-                                           class="form-control form-control-line" name="email"
+                                    <input type="email" value="${userUpdate.email}" placeholder=""
+                                           class="form-control form-control-line" name="emailupdate"
                                            id="example-email"></div>
                             </div>
+
                             <div class="form-group">
-                                <label class="col-md-12">Password</label>
+                                <label class="col-md-12">Avatar</label>
                                 <div class="col-md-12">
-                                    <input name="passWord" type="password" value="password"
+                                    <input name="newAvatar" type="text" value="${userUpdate.avatar}"
                                            class="form-control form-control-line">
                                 </div>
                             </div>
@@ -80,17 +93,20 @@
                                 <label class="col-sm-12">Select Role</label>
                                 <div class="col-sm-12">
 
-                                    <select name="role" class="form-control form-control-line">
-                                        <c:forEach var="item" items="${listRole}">
-                                        <option value="${item.getId()}">${item.getDescription()}</option>
-                                        </c:forEach>
+                                    <select name="newRole" class="form-control form-control-line">
+                                        <c:if test="${listRole!=null}">
+                                            <c:forEach var="item" items="${listRole}">
+                                                <option value="${item.getId()}" ${userUpdate != null && userUpdate.getRoleId() == item.getId() ? 'selected' : ''}>${item.getDescription()}</option>
+                                            </c:forEach>
+                                        </c:if>
 
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-success">Add User</button>
+                                    <button type="submit" class="btn btn-success">Save</button>
+
                                     <a href="<%=contextPath%>/user" class="btn btn-primary">Quay lại</a>
                                 </div>
                             </div>
@@ -98,8 +114,22 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-12"></div>
+
+
             </div>
             <!-- /.row -->
+            <c:if test="${msg-fail != 0}">
+                <h5 style="color: red;">${msg-fail}</h5>
+
+            </c:if>
+            <c:if test="${msg-valid != 0}">
+                <h5 style="color: red;">${msg-valid}</h5>
+
+            </c:if>
+            <c:if test="${msg-done != 0}">
+                <h5 style="color: green;">${msg-done}</h5>
+            </c:if>
+
         </div>
         <!-- /.container-fluid -->
         <footer class="footer text-center"> 2018 &copy; myclass.com</footer>
