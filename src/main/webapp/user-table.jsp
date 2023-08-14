@@ -87,7 +87,7 @@
                                                 <a href="#" userId="${item.getId()}"
                                                    class="btn btn-sm btn-danger btn-delete-user">Xóa</a>
                                                 <%--                                        <span userId="${item.getId()}" class="btn btn-sm btn-danger btn-delele-user">Xóa</span>--%>
-                                                <a href="user-details.jsp" class="btn btn-sm btn-info">Xem</a>
+                                                <a href="<c:url value="/user/details?id=${item.id}" />" class="btn btn-sm btn-info">Xem</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

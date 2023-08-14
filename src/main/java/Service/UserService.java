@@ -1,6 +1,8 @@
 package Service;
 
+import Dto.UserDetailDTO;
 import Respository.RolesRepository;
+import Respository.TaskRepository;
 import Respository.UserRepository;
 import model.RolesModel;
 import model.UserModel;
@@ -13,6 +15,7 @@ public class UserService {
 
     RolesRepository rolesRepository = new RolesRepository();
 
+    TaskRepository taskRepository = new TaskRepository();
     public List<UserModel> getAll(){
         return userRepository.getAll();
     }
@@ -41,6 +44,10 @@ public class UserService {
 
     public boolean udpateUser(int id, String email, String fullname, String avatar, int roleId){
         return userRepository.updateUser(id, email, fullname, avatar ,roleId);
+    }
+
+    public UserDetailDTO findByUserId(int userId) {
+        return taskRepository.findByUserId(userId);
     }
 
 

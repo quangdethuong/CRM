@@ -63,6 +63,7 @@ public class LoginController extends HttpServlet {
             return;
         }
         session.setAttribute("user2", user);
+        session.setAttribute("user2Id", user.getId());
         System.out.println(remember);
         boolean isSuccess = loginService.checkLogin(email, password);
         List<UserModel> userModelList = userService.getUser(email, password);

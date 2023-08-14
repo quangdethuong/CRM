@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <%@ page isELIgnored="false" %>
@@ -50,7 +51,7 @@
                         <h4 class="page-title">Danh sách công việc</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                        <a href="task-add.html" class="btn btn-sm btn-success">Thêm mới</a>
+                        <a href="task/add" class="btn btn-sm btn-success">Thêm mới</a>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -73,34 +74,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach items="${taskList}" var="task" varStatus="status">
                                         <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>Dự án CRM</td>
-                                            <td>Nguyễn Văn Tèo</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đã hoàn thành</td>
+                                            <td>${status.count}</td>
+                                            <td>${task.name}</td>
+                                            <td>${task.jobName}</td>
+                                            <td>${task.userName}</td>
+                                            <td><fmt:formatDate value="${task.startDay}" pattern="dd-MM-yyyy" /></td>
+                                            <td><fmt:formatDate value="${task.endDay}" pattern="dd-MM-yyyy" /></td>
+                                            <td>${task.statusDesc}</td>
                                             <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
+                                                <a href="task/update?id=${task.getId()}" class="btn btn-sm btn-primary">Sửa</a>
+                                                <span taskId="${task.getId()}" class="btn btn-sm btn-danger btn-delete-task">Xóa</span>
                                                 <a href="#" class="btn btn-sm btn-info">Xem</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Thiết kế database</td>
-                                            <td>Dự án CRM</td>
-                                            <td>Trần Thị Lan</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đang thực hiện</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="#" class="btn btn-sm btn-info">Xem</a>
-                                            </td>
-                                        </tr>
+                                    </c:forEach>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -128,6 +118,8 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script src="<c:url value="/js/task.js"/>"></script>
+
     <script>
         $(document).ready(function () {
             $('#example').DataTable();

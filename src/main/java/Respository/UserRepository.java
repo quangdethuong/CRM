@@ -86,56 +86,7 @@ public class UserRepository {
     }
 
 
-    public UserDetailDTO findByUserId(int userId) {
-        Connection connection = null;
-        UserDetailDTO userDetailDto = new UserDetailDTO();
-        List<TaskDTO> taskDtoList = new ArrayList<>();
 
-        try {
-            connection = MysqlConfig.getConnection();
-            String userSql = "SELECT fullname as user_name, email as email, avatar as avatar FROM users WHERE id = ?";
-            PreparedStatement userStatement = connection.prepareStatement(userSql);
-            userStatement.setInt(1, userId);
-            ResultSet userResult = userStatement.executeQuery();
-
-            if (userResult.next()) {
-                userDetailDto.setUserName(userResult.getString("user_name"));
-                userDetailDto.setUserEmail(userResult.getString("email"));
-                userDetailDto.setUserAvatar(userResult.getString("avatar"));
-            }
-
-            String taskSql = "SELECT t.*, j.name as job_name, s.id as status_id FROM tasks t INNER JOIN jobs j ON t.job_id = j.id INNER JOIN status s ON t.status_id = s.id WHERE t.user_id = ?";
-            PreparedStatement taskStatement = connection.prepareStatement(taskSql);
-            taskStatement.setInt(1, userId);
-            ResultSet taskResult = taskStatement.executeQuery();
-
-            while (taskResult.next()) {
-                TaskDTO taskDto = new TaskDTO();
-                taskDto.setId(taskResult.getInt("id"));
-                taskDto.setName(taskResult.getString("name"));
-                taskDto.setStartDay(taskResult.getDate("start_date"));
-                taskDto.setEndDay(taskResult.getDate("end_date"));
-                taskDto.setJobName(taskResult.getString("job_name"));
-                taskDto.setStatusId(taskResult.getInt("status_id"));
-                taskDtoList.add(taskDto);
-            }
-
-            userDetailDto.setTaskDtoList(taskDtoList);
-
-        } catch (Exception e) {
-            System.out.println("Error findByUserId: " + e.getMessage());
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (Exception e) {
-                    System.out.println("Error close findByUserId: " + e.getMessage());
-                }
-            }
-        }
-
-        return userDetailDto;
-    }
 
     public List<UserModel> findByEmailAndPassword(String email, String password) {
         Connection connection = null;

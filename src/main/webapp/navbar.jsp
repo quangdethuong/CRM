@@ -111,6 +111,16 @@
                                                                                 aria-hidden="true"></i><span
                                 class="hide-menu">Thành viên</span></a>
                     </li>
+
+
+                    <li>
+                        <a href="<%=contextPath%>/role" class="waves-effect"><i class="fa fa-modx fa-fw"
+                                                                                aria-hidden="true"></i><span
+                                class="hide-menu">Quyền</span></a>
+                    </li>
+                </c:if>
+                <c:if test="${role_id == 2}">
+
                     <li>
                         <a href="<%=contextPath%>/role" class="waves-effect"><i class="fa fa-modx fa-fw"
                                                                                 aria-hidden="true"></i><span
@@ -118,12 +128,12 @@
                     </li>
                 </c:if>
                 <li>
-                    <a href="groupwork.jsp" class="waves-effect"><i class="fa fa-table fa-fw"
+                    <a href="<%=contextPath%>/groupwork" class="waves-effect"><i class="fa fa-table fa-fw"
                                                                     aria-hidden="true"></i><span
                             class="hide-menu">Dự án</span></a>
                 </li>
                 <li>
-                    <a href="task.jsp" class="waves-effect"><i class="fa fa-table fa-fw"
+                    <a href="<%=contextPath%>/task" class="waves-effect"><i class="fa fa-table fa-fw"
                                                                aria-hidden="true"></i><span
                             class="hide-menu">Công việc</span></a>
                 </li>

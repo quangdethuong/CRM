@@ -1,5 +1,6 @@
 package controller;
 
+import Dto.UserDetailDTO;
 import Service.UserService;
 import model.RolesModel;
 import model.UserModel;
@@ -10,7 +11,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "UserController", urlPatterns = {"/user", "/user/add", "/user/delete", "/user/update"})
+@WebServlet(name = "UserController", urlPatterns = {"/user", "/user/add", "/user/delete", "/user/update","/user/details"})
 public class UserController extends HttpServlet {
     private UserService userService = new UserService();
 
@@ -34,13 +35,16 @@ public class UserController extends HttpServlet {
             case "/user/update":
                 updateUser(request, response);
                 break;
+            case "/user/details":
+                userDetail(request, response);
+                break;
             default:
 
                 break;
         }
     }
 
-    @Override // ok tks m nha :))) clm t met qua oke a zai nn :))
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -66,9 +70,9 @@ public class UserController extends HttpServlet {
 
     private void getAllUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
         List<UserModel> userModelList = userService.getAll();
         request.setAttribute("userList", userModelList);
+
         request.getRequestDispatcher("/user-table.jsp").forward(request, response);
     }
 
@@ -138,6 +142,24 @@ public class UserController extends HttpServlet {
 
     private void deteleUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println(id);
+
         boolean isSuccess = userService.deleteUser(id);
+    }
+
+    private void userProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = (int) request.getAttribute("user2Id");
+        System.out.println(id);
+        boolean isSuccess = userService.deleteUser(id);
+    }
+
+
+    private void userDetail(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        req.setCharacterEncoding("utf-8");
+        int id = Integer.parseInt(req.getParameter("id"));
+        System.out.println(id);
+        UserDetailDTO userDetail = userService.findByUserId(id);
+        req.setAttribute("userDetail", userDetail);
+        req.getRequestDispatcher("/user-details.jsp").forward(req, resp);
     }
 }
