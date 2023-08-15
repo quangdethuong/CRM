@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +25,8 @@
     <!-- color CSS -->
     <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/popup-delete.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -47,12 +50,20 @@
                         <h4 class="page-title">Danh sách dự án</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                        <a href="groupwork-add.html" class="btn btn-sm btn-success">Thêm mới</a>
+                        <a href="<c:url value="/job/add"/>" class="btn btn-sm btn-success">Thêm mới</a>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /row -->
                 <div class="row">
+                    <div class="overlay" id="overlay"></div>
+                    <div class="custom-popup" id="deleteConfirmation">
+                        <div class="popup-content">
+                            <p>Bạn có chắc muốn xóa công việc này?</p>
+                            <button  class="btn-confirm-delete">Xác nhận</button>
+                            <button class="btn-cancel-delete">Hủy</button>
+                        </div>
+                    </div>
                     <div class="col-sm-12">
                         <div class="white-box">
                             <div class="table-responsive">
@@ -67,28 +78,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="groupwork-details.html" class="btn btn-sm btn-info">Xem</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Thiết kế hệ thống</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="groupwork-details.html" class="btn btn-sm btn-info">Xem</a>
-                                            </td>
-                                        </tr>
+
+                                        <c:forEach items="${jobLists}" var="job" varStatus="status">
+                                            <tr>
+                                                <td>${status.count}</td>
+                                                <td>${job.getName()}</td>
+                                                <td>${job.getStart_date()}</td>
+                                                <td>${job.getEnd_date()}</td>
+                                                <td>
+                                                    <a href="job/update?id=${job.getId()}" class="btn btn-sm btn-primary">Sửa</a>
+                                                    <button jobid="${job.getId()}"  class="btn btn-sm btn-danger btn-delete-job">Xóa</button>
+                                                    <a href="job/details?id=${job.getId()}" class="btn btn-sm btn-info">Xem</a>
+                                                </td>
+                                            </tr>
+
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -116,6 +120,7 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script src="js/Job.js"></script>
     <script>
         $(document).ready(function () {
             $('#example').DataTable();

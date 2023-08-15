@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -255,8 +256,8 @@
                                                 <div class="mail-contnet">
                                                     <h5>${task.name}</h5>
                                                     <span class="mail-desc"></span>
-                                                    <span class="time">Bắt đầu: ${task.startDay}</span>
-                                                    <span class="time">Kết thúc: ${task.endDay}</span>
+                                                    <span class="time">Bắt đầu: <fmt:formatDate value="${task.startDay}" pattern="dd-MM-yyyy" /></span>
+                                                    <span class="time">Kết thúc: <fmt:formatDate value="${task.endDay}" pattern="dd-MM-yyyy" /></span>
                                                 </div>
                                             </a>
                                         </c:if>

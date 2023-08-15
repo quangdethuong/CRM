@@ -48,12 +48,12 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">${isUpdate==true ? "Cập Nhật Task" : "Thêm mới Task"}</h4>
+                    <h4 class="page-title">${isEdit==true ? "Cập Nhật Task" : "Thêm mới Task"}</h4>
                 </div>
             </div>
             <!-- /.row -->
             <!-- .row -->
-            <h3 class="mt-5 text-center" style="color: red;">${errorMessage}</h3>
+            <h3 class="mt-5 text-center" style="color: red;">${erMsg}</h3>
 
             <div class="row">
                 <div class="col-md-2 col-12"></div>
@@ -132,80 +132,6 @@
                 </div>
                 <div class="col-md-2 col-12"></div>
             </div>
-
-<%--            <div class="row">--%>
-<%--                <div class="col-md-2 col-12"></div>--%>
-<%--                <div class="col-md-8 col-xs-12">--%>
-<%--                    <div class="white-box">--%>
-<%--                        <c:set var="actionUrl" value="${isEdit == true ? '/task/update' : '/task/add'}" />--%>
-<%--                        <c:if test="${isEdit == true}">--%>
-<%--                            <c:set var="actionUrl" value="${actionUrl}?id=${task.id}" />--%>
-<%--                        </c:if>--%>
-<%--                        <form action="<c:url value="${actionUrl}"/>" method="post" class="form-horizontal form-material">--%>
-<%--                            <div class="form-group">--%>
-<%--                                <label class="col-md-12">Dự án</label>--%>
-<%--                                <div class="col-md-12">--%>
-<%--                                    <select name="job_id" class="form-control form-control-line">--%>
-<%--                                        <c:forEach items="${jobList}" var="job">--%>
-<%--                                            <option value="${job.id}" ${task != null && task.jobId == job.id ? 'selected' : ''}>${job.name}</option>--%>
-<%--                                        </c:forEach>--%>
-<%--                                    </select>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <label class="col-md-12">Tên công việc</label>--%>
-<%--                                <div class="col-md-12">--%>
-<%--                                    <input name="name" type="text" placeholder="Tên công việc"--%>
-<%--                                           class="form-control form-control-line" value="${task != null ? task.name : ''}" >--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <label class="col-md-12">Người thực hiện</label>--%>
-<%--                                <div class="col-md-12">--%>
-<%--                                    <select name="user_id" class="form-control form-control-line">--%>
-<%--                                        <c:forEach items="${userList}" var="user">--%>
-<%--                                            <option value="${user.id}" ${task != null && task.userId == user.id ? 'selected' : ''}>${user.fullname}</option>--%>
-<%--                                        </c:forEach>--%>
-<%--                                    </select>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <label class="col-md-12">Ngày bắt đầu</label>--%>
-<%--                                <div class="col-md-12">--%>
-<%--                                    <input name="start_day" type="text" placeholder="dd/MM/yyyy"--%>
-<%--                                           class="form-control form-control-line date-custom" autocomplete="off" value="${task != null ? task.startDay : ''}" >--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <label class="col-md-12">Ngày kết thúc</label>--%>
-<%--                                <div class="col-md-12">--%>
-<%--                                    <input name="end_day" type="text" placeholder="dd/MM/yyyy"--%>
-<%--                                           class="form-control form-control-line date-custom" autocomplete="off" value="${task != null ? task.endDay : ''}" >--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <c:if test="${isEdit == true}">--%>
-<%--                                <div class="form-group">--%>
-<%--                                    <label class="col-sm-12">Select Status</label>--%>
-<%--                                    <div class="col-sm-12">--%>
-<%--                                        <select name="status_id" class="form-control form-control-line">--%>
-<%--                                            <c:forEach items="${statusList}" var="status">--%>
-<%--                                                <option value="${status.id}" ${task != null && task.statusId == status.id ? 'selected' : ''}>${status.name}</option>--%>
-<%--                                            </c:forEach>--%>
-<%--                                        </select>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </c:if>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <div class="col-sm-12">--%>
-<%--                                    <button type="submit" class="btn btn-success">${isEdit == true ? "Cập nhật" : "Thêm mới"}</button>--%>
-<%--                                    <a href="<c:url value="/task"/>" class="btn btn-primary">Quay lại</a>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </form>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="col-md-2 col-12"></div>--%>
-<%--            </div>--%>
 
             <!-- /.row -->
         </div>

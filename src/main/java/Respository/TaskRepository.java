@@ -167,6 +167,10 @@ public class TaskRepository {
 
             while (taskResult.next()) {
                 TaskDTO taskDto = new TaskDTO();
+
+                SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String formattedStartDate = outputDateFormat.format(taskResult.getDate("start_date"));
+                String formattedEndDate = outputDateFormat.format(taskResult.getDate("end_date"));
                 taskDto.setId(taskResult.getInt("id"));
                 taskDto.setName(taskResult.getString("name"));
                 taskDto.setStartDay(taskResult.getDate("start_date"));

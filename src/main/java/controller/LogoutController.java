@@ -13,7 +13,7 @@ public class LogoutController extends HttpServlet {
         if (session != null){
             session.removeAttribute("email");
             session.removeAttribute("password");
-//            session.removeAttribute("role_id");
+           session.removeAttribute("role_id");
             session.invalidate();
 
         }
