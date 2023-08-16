@@ -8,12 +8,42 @@ public class TaskDTO {
     private String name;
     private Date startDay;
     private Date endDay;
+
+    private String start_DayStr;
+
+    public String getStart_DayStr() {
+        return start_DayStr;
+    }
+
+    public void setStart_DayStr(String start_DayStr) {
+        this.start_DayStr = start_DayStr;
+    }
+
+    public String getEnd_DayStr() {
+        return end_DayStr;
+    }
+
+    public void setEnd_DayStr(String end_DayStr) {
+        this.end_DayStr = end_DayStr;
+    }
+
+    private String end_DayStr;
     private int userId;
     private String userName;
     private int jobId;
     private String jobName;
     private int statusId;
     private String statusDesc;
+
+    private String taskName;
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
 
     public int getId() {
         return id;

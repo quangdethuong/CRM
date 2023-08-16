@@ -1,6 +1,7 @@
 package controller;
 
 import Service.JobService;
+import Service.UserService;
 import model.JobModel;
 
 import javax.servlet.*;
@@ -11,10 +12,13 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-@WebServlet(name = "GroupworkController", urlPatterns = {"/job","/job/add","/job/delete", "/job/update"})
+@WebServlet(name = "GroupworkController", urlPatterns = {"/job", "/job/add", "/job/delete", "/job/update","/job/details"})
 public class GroupworkController extends HttpServlet {
 
     private JobService jobService = new JobService();
+
+    private UserService userService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = req.getServletPath();
@@ -31,11 +35,13 @@ public class GroupworkController extends HttpServlet {
             case "/job/update":
                 updateJob(req, resp);
                 break;
+            case "/job/details":
+                jobDetail(req, resp);
+                break;
             default:
                 break;
         }
     }
-
 
 
 
@@ -58,11 +64,12 @@ public class GroupworkController extends HttpServlet {
         }
     }
 
-    private void updateJob(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {req.setCharacterEncoding("utf-8");
+    private void updateJob(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
         int id = Integer.parseInt(req.getParameter("id"));
         String method = req.getMethod();
 
-        if(method.equalsIgnoreCase("post")){
+        if (method.equalsIgnoreCase("post")) {
             String name = req.getParameter("name");
             String startDay = req.getParameter("start_day");
             String endDay = req.getParameter("end_day");
@@ -99,11 +106,11 @@ public class GroupworkController extends HttpServlet {
         req.getRequestDispatcher("/groupwork-add.jsp").forward(req, resp);
     }
 
-    private void addJob(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    private void addJob(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         String method = req.getMethod();
         String errorMessage = null;
-        if(method.equalsIgnoreCase("post")){
+        if (method.equalsIgnoreCase("post")) {
             String name = req.getParameter("name");
             String startDay = req.getParameter("start_day");
             String endDay = req.getParameter("end_day");
@@ -137,7 +144,7 @@ public class GroupworkController extends HttpServlet {
         req.getRequestDispatcher("/groupwork-add.jsp").forward(req, resp);
     }
 
-    private void getAllJobs(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException   {
+    private void getAllJobs(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("jobLists", jobService.getAllJobs());
         req.getRequestDispatcher("/groupwork.jsp").forward(req, resp);
     }
@@ -147,4 +154,17 @@ public class GroupworkController extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         boolean isSuccess = jobService.deleteJob(id);
     }
+
+
+    private void jobDetail(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+
+        JobModel test = jobService.findById(id);
+
+        req.setAttribute("jobDetail", jobService.findById(id));
+        req.setAttribute("userList", userService.getAll());
+        req.getRequestDispatcher("/groupwork-details.jsp").forward(req, resp);
+
+    }
+
 }

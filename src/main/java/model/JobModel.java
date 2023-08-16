@@ -1,10 +1,35 @@
 package model;
 
+import Dto.TaskDTO;
+
+import java.util.List;
+
 public class JobModel {
     private int id;
     private String name;
     private String start_date;
     private String end_date;
+
+
+    private List<TaskDTO> taskModelList;
+
+    private TaskModel taskModel;
+
+    public TaskModel getTaskModel() {
+        return taskModel;
+    }
+
+    public void setTaskModel(TaskModel taskModel) {
+        this.taskModel = taskModel;
+    }
+
+    public List<TaskDTO> getTaskModelList() {
+        return taskModelList;
+    }
+
+    public void setTaskModelList(List<TaskDTO> taskModelList) {
+        this.taskModelList = taskModelList;
+    }
 
     public int getId() {
         return id;

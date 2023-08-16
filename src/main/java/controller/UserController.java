@@ -159,6 +159,7 @@ public class UserController extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         System.out.println(id);
         UserDetailDTO userDetail = userService.findByUserId(id);
+
         req.setAttribute("userDetail", userDetail);
         req.getRequestDispatcher("/user-details.jsp").forward(req, resp);
     }

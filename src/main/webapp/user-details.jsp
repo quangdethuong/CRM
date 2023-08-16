@@ -152,8 +152,8 @@
                                                 <c:set var="countWithStatusOne" value="${countWithStatusOne + 1}"/>
                                             </c:if>
                                         </c:forEach>
-                                        <c:set var="percent1"
-                                               value="${Math.round(countWithStatusOne * 100 / userDetail.taskDtoList.size())}"/>
+                                            <c:set var="percent1"
+                                                   value="${Math.round(countWithStatusOne * 100 / userDetail.taskDtoList.size())}"/>
                                         <h3 class="counter text-right m-t-15 text-danger">${percent1}%</h3>
                                     </div>
                                     <div class="col-xs-12">
@@ -288,8 +288,8 @@
                                                 <div class="mail-contnet">
                                                     <h5>${task.name}</h5>
                                                     <span class="mail-desc"></span>
-                                                    <span class="time">Bắt đầu: ${task.startDay}</span>
-                                                    <span class="time">Kết thúc: ${task.endDay}</span>
+                                                    <span class="time">Bắt đầu: <fmt:formatDate value="${task.startDay}" pattern="dd-MM-yyyy" /></span>
+                                                    <span class="time">Kết thúc: <fmt:formatDate value="${task.endDay}" pattern="dd-MM-yyyy" /></span>
                                                 </div>
                                             </a>
                                         </c:if>
@@ -321,8 +321,8 @@
                                                 <div class="mail-contnet">
                                                     <h5>${task.name}</h5>
                                                     <span class="mail-desc"></span>
-                                                    <span class="time">Bắt đầu: ${task.startDay}</span>
-                                                    <span class="time">Kết thúc: ${task.endDay}</span>
+                                                    <span class="time">Bắt đầu: <fmt:formatDate value="${task.startDay}" pattern="dd-MM-yyyy" /></span>
+                                                    <span class="time">Kết thúc: <fmt:formatDate value="${task.endDay}" pattern="dd-MM-yyyy" /></span>
                                                 </div>
                                             </a>
                                         </c:if>
@@ -332,9 +332,7 @@
                                     <a href="#">
                                         <div class="mail-contnet">
                                             <h5>NOT FOUND</h5>
-                                                <%--                                                <span class="mail-desc"></span>--%>
-                                                <%--                                                <span class="time">Bắt đầu: ${task.startDay}</span>--%>
-                                                <%--                                                <span class="time">Kết thúc: ${task.endDay}</span>--%>
+
                                         </div>
                                     </a>
                                 </c:otherwise>

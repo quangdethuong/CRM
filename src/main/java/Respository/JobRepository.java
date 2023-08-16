@@ -1,7 +1,9 @@
 package Respository;
 
+import Dto.TaskDTO;
 import config.MysqlConfig;
 import model.JobModel;
+import model.TaskModel;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -99,9 +101,14 @@ public class JobRepository {
         return isSuccess;
     }
 
+
+
     public JobModel findById(int id) {
         Connection connection = null;
         JobModel jobModel = new JobModel();
+        List<TaskDTO> taskModelList = new ArrayList<>();
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         try {
             connection = MysqlConfig.getConnection();
             String sql = "select * from jobs where id = ?";
@@ -109,17 +116,38 @@ public class JobRepository {
             stateMent.setInt(1, id);
             // Thực thi câu query
             ResultSet resultSet = stateMent.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 jobModel.setId(resultSet.getInt("id"));
                 jobModel.setName(resultSet.getString("name"));
 
-                SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String formattedStartDate = outputDateFormat.format(resultSet.getDate("start_date"));
                 String formattedEndDate = outputDateFormat.format(resultSet.getDate("end_date"));
 
                 jobModel.setStart_date(formattedStartDate);
                 jobModel.setEnd_date(formattedEndDate);
             }
+
+            String jobDetailSql = "select j.id as job_id, j.name as job_name, t.id as task_id, t.start_date , t.end_date,t.user_id ,t.status_id,t.name as task_name, u.fullname  from jobs j inner join tasks t on t.job_id = j.id inner join users u on u.id = t.user_id where j.id = ?";
+            PreparedStatement stateMent2 = connection.prepareStatement(jobDetailSql);
+            stateMent2.setInt(1, id);
+            ResultSet jobResult = stateMent2.executeQuery();
+            while (jobResult.next()){
+                TaskDTO taskDTO = new TaskDTO();
+                taskDTO.setJobId(jobResult.getInt("job_id"));
+                taskDTO.setName(jobResult.getString("job_name"));
+                taskDTO.setId(jobResult.getInt("task_id"));
+                String formattedStartDate2 = outputDateFormat.format(resultSet.getDate("start_date"));
+                String formattedEndDate2 = outputDateFormat.format(resultSet.getDate("end_date"));
+                taskDTO.setStartDay(jobResult.getDate("start_date"));
+                taskDTO.setEndDay(jobResult.getDate("end_date"));
+                taskDTO.setUserId(jobResult.getInt("user_id"));
+                taskDTO.setStatusId(jobResult.getInt("status_id"));
+                taskDTO.setTaskName(jobResult.getString("task_name"));
+                taskDTO.setUserName(jobResult.getString("fullname"));
+                taskModelList.add(taskDTO);
+            }
+            jobModel.setTaskModelList(taskModelList);
+
         } catch (Exception e) {
             System.out.println("Error findById: " + e.getMessage());
         } finally {
