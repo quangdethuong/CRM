@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"  %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,11 +56,11 @@
                             <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/img1.jpg">
                                 <div class="overlay-box">
                                     <div class="user-content">
-                                        <c:if test="${user2!=null}">
+                                        <c:if test="${userProfile!=null}">
                                             <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg"
                                                                               class="thumb-lg img-circle" alt="img"></a>
-                                            <h4 class="text-white">${user2.fullname}</h4>
-                                            <h5 class="text-white">${user2.getEmail()}</h5>
+                                            <h4 class="text-white">${userProfile.userEmail}</h4>
+                                            <h5 class="text-white">${userProfile.userName}</h5>
                                         </c:if>
                                     </div>
                                 </div>
@@ -75,7 +76,15 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-danger">20%</h3>
+                                            <c:set var="countWithStatusOne" value="0"/>
+                                            <c:forEach var="item" items="${userProfile.taskDtoList}">
+                                                <c:if test="${item.statusId == 1}">
+                                                    <c:set var="countWithStatusOne" value="${countWithStatusOne + 1}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            <c:set var="percent1"
+                                                   value="${Math.round(countWithStatusOne * 100 / userProfile.taskDtoList.size())}"/>
+                                            <h3 class="counter text-right m-t-15 text-danger">${percent1}%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i data-icon="E" class="linea-icon linea-basic"></i>
@@ -84,8 +93,8 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-danger" role="progressbar"
-                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 20%"></div>
+                                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: ${percent1}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +106,15 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-megna">50%</h3>
+                                            <c:set var="countWithStatusTwo" value="0"/>
+                                            <c:forEach var="item" items="${userProfile.taskDtoList}">
+                                                <c:if test="${item.statusId == 2}">
+                                                    <c:set var="countWithStatusTwo" value="${countWithStatusTwo + 1}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            <c:set var="percent2"
+                                                   value="${Math.round(countWithStatusTwo * 100 / userProfile.taskDtoList.size())}"/>
+                                            <h3 class="counter text-right m-t-15 text-megna">${percent2}%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
@@ -106,8 +123,8 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-megna" role="progressbar"
-                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 50%"></div>
+                                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: ${percent2}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -119,7 +136,16 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-primary">30%</h3>
+                                            <c:choose>
+                                                <c:when test="${userProfile.taskDtoList.size() == 0}">
+                                                    <c:set var="percent3" value="0"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="percent3" value="${100 - percent1 - percent2}"/>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                            <h3 class="counter text-right m-t-15 text-primary">${percent3}%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
@@ -128,8 +154,8 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-primary" role="progressbar"
-                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 30%"></div>
+                                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: ${percent3}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -161,28 +187,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach var="item" items="${userProfile.taskDtoList}" varStatus="stt">
                                         <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>Dự án CRM</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đã hoàn thành</td>
+                                            <td>${stt.count}</td>
+                                            <td>${item.name}</td>
+                                            <td>${item.jobName}</td>
+                                            <td><fmt:formatDate value="${item.startDay}" pattern="dd-MM-yyyy" /></td>
+                                            <td><fmt:formatDate value="${item.startDay}" pattern="dd-MM-yyyy" /></td>
+                                            <td>${item.statusDesc}</td>
                                             <td>
-                                                <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
+                                                <a href="<c:url value="/profile/update?id=${item.getId()}"/>" class="btn btn-sm btn-primary">Cập nhật</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Thiết kế database</td>
-                                            <td>Dự án CRM</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đang thực hiện</td>
-                                            <td>
-                                                <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
-                                            </td>
-                                        </tr>
+                                    </c:forEach>
+
+
                                     </tbody>
                                 </table>
                             </div>

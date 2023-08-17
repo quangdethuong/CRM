@@ -136,8 +136,6 @@ public class JobRepository {
                 taskDTO.setJobId(jobResult.getInt("job_id"));
                 taskDTO.setName(jobResult.getString("job_name"));
                 taskDTO.setId(jobResult.getInt("task_id"));
-                String formattedStartDate2 = outputDateFormat.format(resultSet.getDate("start_date"));
-                String formattedEndDate2 = outputDateFormat.format(resultSet.getDate("end_date"));
                 taskDTO.setStartDay(jobResult.getDate("start_date"));
                 taskDTO.setEndDay(jobResult.getDate("end_date"));
                 taskDTO.setUserId(jobResult.getInt("user_id"));

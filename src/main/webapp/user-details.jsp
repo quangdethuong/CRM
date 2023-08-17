@@ -71,74 +71,7 @@
                 </div>
                 <div class="col-md-8 col-xs-12">
                     <!-- BEGIN THỐNG KÊ -->
-                    <%--	<div class="row">--%>
-                    <%--		<!--col -->--%>
-                    <%--		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">--%>
-                    <%--			<div class="white-box">--%>
-                    <%--				<div class="col-in row">--%>
-                    <%--					<div class="col-xs-12">--%>
-                    <%--						<h3 class="counter text-right m-t-15 text-danger">20%</h3>--%>
-                    <%--                    </div>--%>
-                    <%--                    <div class="col-xs-12">--%>
-                    <%--						<i data-icon="E" class="linea-icon linea-basic"></i>--%>
-                    <%--						<h5 class="text-muted vb text-center">CHƯA BẮT ĐẦU</h5>--%>
-                    <%--					</div>--%>
-                    <%--					<div class="col-md-12 col-sm-12 col-xs-12">--%>
-                    <%--						<div class="progress">--%>
-                    <%--							<div class="progress-bar progress-bar-danger" role="progressbar"--%>
-                    <%--								aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"--%>
-                    <%--								style="width: 20%"></div>--%>
-                    <%--						</div>--%>
-                    <%--					</div>--%>
-                    <%--				</div>--%>
-                    <%--			</div>--%>
-                    <%--		</div>--%>
-                    <%--		<!-- /.col -->--%>
-                    <%--		<!--col -->--%>
-                    <%--		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">--%>
-                    <%--			<div class="white-box">--%>
-                    <%--				<div class="col-in row">--%>
-                    <%--					<div class="col-xs-12">--%>
-                    <%--						<h3 class="counter text-right m-t-15 text-megna">50%</h3>--%>
-                    <%--                    </div>--%>
-                    <%--                    <div class="col-xs-12">--%>
-                    <%--						<i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>--%>
-                    <%--						<h5 class="text-muted vb text-center">ĐANG THỰC HIỆN</h5>--%>
-                    <%--					</div>--%>
-                    <%--					<div class="col-md-12 col-sm-12 col-xs-12">--%>
-                    <%--						<div class="progress">--%>
-                    <%--							<div class="progress-bar progress-bar-megna" role="progressbar"--%>
-                    <%--								aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"--%>
-                    <%--								style="width: 50%"></div>--%>
-                    <%--						</div>--%>
-                    <%--					</div>--%>
-                    <%--				</div>--%>
-                    <%--			</div>--%>
-                    <%--		</div>--%>
-                    <%--		<!-- /.col -->--%>
-                    <%--		<!--col -->--%>
-                    <%--		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">--%>
-                    <%--			<div class="white-box">--%>
-                    <%--				<div class="col-in row">--%>
-                    <%--					<div class="col-xs-12">--%>
-                    <%--						<h3 class="counter text-right m-t-15 text-primary">30%</h3>--%>
-                    <%--                    </div>--%>
-                    <%--                    <div class="col-xs-12">--%>
-                    <%--						<i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>--%>
-                    <%--						<h5 class="text-muted vb text-center">HOÀN THÀNH</h5>--%>
-                    <%--					</div>--%>
-                    <%--					<div class="col-md-12 col-sm-12 col-xs-12">--%>
-                    <%--						<div class="progress">--%>
-                    <%--							<div class="progress-bar progress-bar-primary" role="progressbar"--%>
-                    <%--								aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"--%>
-                    <%--								style="width: 30%"></div>--%>
-                    <%--						</div>--%>
-                    <%--					</div>--%>
-                    <%--				</div>--%>
-                    <%--			</div>--%>
-                    <%--		</div>--%>
-                    <%--		<!-- /.col -->--%>
-                    <%--	</div>--%>
+
 
                     <div class="row">
                         <!--col -->
@@ -152,8 +85,8 @@
                                                 <c:set var="countWithStatusOne" value="${countWithStatusOne + 1}"/>
                                             </c:if>
                                         </c:forEach>
-                                            <c:set var="percent1"
-                                                   value="${Math.round(countWithStatusOne * 100 / userDetail.taskDtoList.size())}"/>
+                                        <c:set var="percent1"
+                                               value="${Math.round(countWithStatusOne * 100 / userDetail.taskDtoList.size())}"/>
                                         <h3 class="counter text-right m-t-15 text-danger">${percent1}%</h3>
                                     </div>
                                     <div class="col-xs-12">
@@ -252,12 +185,15 @@
                                 <c:when test="${userDetail.taskDtoList.size() != 0}">
                                     <c:forEach var="task" items="${userDetail.taskDtoList}">
                                         <c:if test="${task.statusId == 1}">
-                                            <a href="#">
+                                            <a href="<c:url value="/task/update?id=${task.getId()}"/>">
                                                 <div class="mail-contnet">
-                                                    <h5>${task.name}</h5>
+                                                    <h5>Project Name: ${task.jobName}</h5>
+                                                    <h6 style="color: #00b3ee">Task name: ${task.name}</h6>
                                                     <span class="mail-desc"></span>
-                                                    <span class="time">Bắt đầu: <fmt:formatDate value="${task.startDay}" pattern="dd-MM-yyyy" /></span>
-                                                    <span class="time">Kết thúc: <fmt:formatDate value="${task.endDay}" pattern="dd-MM-yyyy" /></span>
+                                                    <span class="time">Bắt đầu: <fmt:formatDate value="${task.startDay}"
+                                                                                                pattern="dd-MM-yyyy"/></span>
+                                                    <span class="time">Kết thúc: <fmt:formatDate value="${task.endDay}"
+                                                                                                 pattern="dd-MM-yyyy"/></span>
                                                 </div>
                                             </a>
                                         </c:if>
@@ -284,12 +220,15 @@
                                 <c:when test="${userDetail.taskDtoList.size() != 0}">
                                     <c:forEach var="task" items="${userDetail.taskDtoList}">
                                         <c:if test="${task.statusId == 2}">
-                                            <a href="#">
+                                            <a href="<c:url value="/task/update?id=${task.getId()}"/>">
                                                 <div class="mail-contnet">
-                                                    <h5>${task.name}</h5>
+                                                    <h5>Project Name: ${task.jobName}</h5>
+                                                    <h6 style="color: #00b3ee">Task name: ${task.name}</h6>
                                                     <span class="mail-desc"></span>
-                                                    <span class="time">Bắt đầu: <fmt:formatDate value="${task.startDay}" pattern="dd-MM-yyyy" /></span>
-                                                    <span class="time">Kết thúc: <fmt:formatDate value="${task.endDay}" pattern="dd-MM-yyyy" /></span>
+                                                    <span class="time">Bắt đầu: <fmt:formatDate value="${task.startDay}"
+                                                                                                pattern="dd-MM-yyyy"/></span>
+                                                    <span class="time">Kết thúc: <fmt:formatDate value="${task.endDay}"
+                                                                                                 pattern="dd-MM-yyyy"/></span>
                                                 </div>
                                             </a>
                                         </c:if>
@@ -317,12 +256,15 @@
                                 <c:when test="${userDetail.taskDtoList.size() != 0}">
                                     <c:forEach var="task" items="${userDetail.taskDtoList}">
                                         <c:if test="${task.statusId == 3}">
-                                            <a href="#">
+                                            <a href="<c:url value="/task/update?id=${task.getId()}"/>">
                                                 <div class="mail-contnet">
-                                                    <h5>${task.name}</h5>
+                                                    <h5>Project Name: ${task.jobName}</h5>
+                                                    <h6 style="color: #00b3ee">Task name: ${task.name}</h6>
                                                     <span class="mail-desc"></span>
-                                                    <span class="time">Bắt đầu: <fmt:formatDate value="${task.startDay}" pattern="dd-MM-yyyy" /></span>
-                                                    <span class="time">Kết thúc: <fmt:formatDate value="${task.endDay}" pattern="dd-MM-yyyy" /></span>
+                                                    <span class="time">Bắt đầu: <fmt:formatDate value="${task.startDay}"
+                                                                                                pattern="dd-MM-yyyy"/></span>
+                                                    <span class="time">Kết thúc: <fmt:formatDate value="${task.endDay}"
+                                                                                                 pattern="dd-MM-yyyy"/></span>
                                                 </div>
                                             </a>
                                         </c:if>

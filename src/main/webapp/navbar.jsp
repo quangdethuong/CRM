@@ -80,7 +80,7 @@
                             <b class="hidden-xs">hi ${email}</b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="profile.jsp">Thông tin cá nhân</a></li>
+                            <li><a href="<c:url value="/profile?id=${userId}"/>">Thông tin cá nhân</a></li>
                             <li><a href="#">Thống kê công việc</a></li>
                             <li class="divider"></li>
                             <li><a href="<%=contextPath%>/logout">Đăng xuất</a></li>

@@ -160,7 +160,7 @@ public class TaskRepository {
                 userDetailDto.setUserAvatar(userResult.getString("avatar"));
             }
 
-            String taskSql = "SELECT t.*, j.name as job_name, s.id as status_id FROM tasks t INNER JOIN jobs j ON t.job_id = j.id INNER JOIN status s ON t.status_id = s.id WHERE t.user_id = ?";
+            String taskSql = "SELECT t.*, j.name as job_name, s.id as status_id, s.name as status_name FROM tasks t INNER JOIN jobs j ON t.job_id = j.id INNER JOIN status s ON t.status_id = s.id WHERE t.user_id = ?";
             PreparedStatement taskStatement = connection.prepareStatement(taskSql);
             taskStatement.setInt(1, userId);
             ResultSet taskResult = taskStatement.executeQuery();
@@ -177,6 +177,7 @@ public class TaskRepository {
                 taskDto.setEndDay(taskResult.getDate("end_date"));
                 taskDto.setJobName(taskResult.getString("job_name"));
                 taskDto.setStatusId(taskResult.getInt("status_id"));
+                taskDto.setStatusDesc(taskResult.getString("status_name"));
                 taskDtoList.add(taskDto);
             }
 

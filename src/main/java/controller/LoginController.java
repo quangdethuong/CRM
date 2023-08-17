@@ -54,7 +54,8 @@ public class LoginController extends HttpServlet {
         user = userService.findUserRole(email);
         if(user != null){
             session.setAttribute("role_id", user.getRoleId());
-
+            session.setAttribute("user2", user);
+            session.setAttribute("userId", user.getId());
         }
         else {
             req.setAttribute("wrongLogin", "Wrong email or password");
@@ -62,8 +63,7 @@ public class LoginController extends HttpServlet {
             req.getRequestDispatcher("login.jsp").forward(req, resp);
             return;
         }
-        session.setAttribute("user2", user);
-        session.setAttribute("user2Id", user.getId());
+
         System.out.println(remember);
         boolean isSuccess = loginService.checkLogin(email, password);
         List<UserModel> userModelList = userService.getUser(email, password);
